@@ -4,6 +4,6 @@ chrome.runtime.onMessage.addListener(
             .then(response => response.text())
               .then(text => sendResponse(text))
             .catch(error => console.log(error));
-            return true;  
+            return true;  // Will respond asynchronously.
     });
   
