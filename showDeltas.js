@@ -9,6 +9,7 @@ function modifyPartyHtml(index, elem) {
 	if (partyNum > 0) {
 		var handle = $(elem).find("td:eq(1)").find("a").last().html();
 		if (handle) {
+			//next 2 lines - fix for legendary grandmaster
 			handle = handle.replace('<span class="legendary-user-first-letter">','');
 			handle = handle.replace('</span>','');
 			if (handle in results) {
@@ -28,14 +29,15 @@ function modifyPartyHtml(index, elem) {
 		text = "<th class='top right' style='width: 4em;'><span title='Rating change''>&Delta;</span></th>";
 	} else {
 		if (delta > 0) {
-			text = "<td class='" + darkClass + "right'><span style='color:green;font-weight:bold;'>+" + delta  "</span></td>";
+			text = "<td class='" + darkClass + "right'><span style='color:green;font-weight:bold;'>+" + delta + "</span></td>";
 		} else {
-			text = "<td class='" + darkClass + "right'><span style='color:gray;font-weight:bold;'>" + delta  "</span></td>"
+			text = "<td class='" + darkClass + "right'><span style='color:gray;font-weight:bold;'>" + delta + "</span></td>";
 		}
-	}}
+	}
 
 	partyNum++;
 	$(elem).append(text);
+
 }
 
 function showDeltas() {
