@@ -47,6 +47,16 @@ function showDeltas() {
 		var contestants = document.getElementsByClassName("contestant-cell");
 		var contestantsHandles = Array.from(contestants).map(x => x.innerText.trim());
 
+		getDeltas(contestId, contestantsHandles, function() {
+			$(".standings").find("tr").first().find("th").last().removeClass("right");
+			$(".standings").find("tr").find("td").removeClass("right");
+			$(".standings").find("tr").each(modifyPartyHtml);
+			if (count % 2 == 0) {
+				$(".standings").find("tr").last().find("td").last().replaceWith("<td class='smaller bottom right dark'>&Delta;</td>");
+			} else {
+				$(".standings").find("tr").last().find("td").last().replaceWith("<td class='smaller bottom right'>&Delta;</td>");
+			}
+		};);
 		
 	}
 }
@@ -70,7 +80,34 @@ function parseDeltas(data, callback) {
 	callback();
 }
 
+function getDeltas(contestId, contestantsHandles, callback) {
+	var herokuServerOld = "https://cf-predictor-frontend.herokuapp.com/";
+	var pageOld = "GetNextRatingServlet?contestId=" + contestId;
+	var serverOld = herokuServerOld + pageOld;
 
+	var herokuServerNew = "https://cf-predictor.herokuapp.com/";
+	var pageNew = "GetPartialRatingChangesServlet?contestId=" + contestId + "&handles="+contestantsHandles.join(",");
+	var serverNew = herokuServerNew + pageNew;
+
+
+	chrome.runtime.sendMessage({url: serverNew}, function(data) {
+	    try {
+	        data = JSON.parse(data);
+	        parseDeltas(data, callback);
+	    } catch(err) {
+	        console.log(err);
+
+	        chrome.runtime.sendMessage({url: serverOld}, function(data) {
+            	    try {
+            	        data = JSON.parse(data);
+            	        parseDeltas(data, callback);
+            	    } catch(err) {
+            	        console.log(err)
+            	    }
+                });
+	    }
+    });
+}
 
 
 showDeltas();
