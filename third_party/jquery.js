@@ -430,7 +430,7 @@ jQuery.extend( {
 
 
 
-<<<<<<< HEAD
+
 
 function Sizzle( selector, context, results, seed ) {
 	var m, i, elem, nid, match, groups, newSelector,
@@ -564,7 +564,7 @@ function Sizzle( selector, context, results, seed ) {
 	// All others
 	return select( selector.replace( rtrim, "$1" ), context, results, seed );
 }
-=======
+
 var i,
 	support,
 	Expr,
@@ -768,4 +768,4 @@ try {
 	};
 }
 
->>>>>>> b304cd2 (JS function of screen Added)
+
