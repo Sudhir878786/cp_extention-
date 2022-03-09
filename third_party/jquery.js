@@ -68,7 +68,6 @@ var support = {};
 		script.text = code;
 		doc.head.appendChild( script ).parentNode.removeChild( script );
 	}
-<<<<<<< HEAD
 	var
 	version = "3.1.1",
 
@@ -564,5 +563,3 @@ function Sizzle( selector, context, results, seed ) {
 	// All others
 	return select( selector.replace( rtrim, "$1" ), context, results, seed );
 }
-=======
->>>>>>> 1a7b000 (import jquery,Sizzle.js)
